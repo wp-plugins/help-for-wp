@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Help For WordPress
+Plugin Name: Help For WP
 Plugin URI: http://helpforwordpress.com
 Description: The missing (video) training manual for WordPress, this plugin provides a range of video help right inside the Wordpress Administration interface
 Version: 1.0.1
