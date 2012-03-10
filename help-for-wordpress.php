@@ -3,7 +3,7 @@
 Plugin Name: Help For WordPress
 Plugin URI: http://helpforwordpress.com
 Description: The missing (video) training manual for WordPress, this plugin provides a range of video help right inside the Wordpress Administration interface
-Version: 1.0
+Version: 1.0.1
 Author: Peter Shilling
 Author URI: http://helpforwordpress.com
 
@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 if (is_admin()){
 	// Define paths
 	define('H4WP_PATH', dirname(__FILE__));
-	define('H4WP_URL', WP_PLUGIN_URL . '/help-for-wordpress');
+	define('H4WP_URL', WP_PLUGIN_URL . '/help-for-wp');
 	
 	add_thickbox();
 	require_once(plugin_dir_path(__FILE__) . 'includes/admin.php');

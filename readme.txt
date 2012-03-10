@@ -33,4 +33,5 @@ Visit this URL at our site for FAQ and documentation - http://helpforwordpress.
 2. Viewing a video right in the back end of WordPress
 
 == Changelog ==
+1.0.1 Bug fix on plugin path
 1.0 Initial public release
