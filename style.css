@@ -1,0 +1,135 @@
+
+@font-face {
+    font-family: 'Cuprum';
+    src: url('font/cuprum-webfont.eot');
+    src: url('font/cuprum-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/cuprum-webfont.woff') format('woff'),
+         url('font/cuprum-webfont.ttf') format('truetype'),
+         url('font/cuprum-webfont.svg#Cuprum') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+#icon-index {
+
+}
+.h4wp-icon {
+	background: transparent;
+	width: 330px;
+	height: 95px;
+	padding: 15px 0 15px 0;
+}
+.wrap h1 {
+	font-family: 'Cuprum', 'Helvetica', 'Arial', sans-serif;
+	font-size: 3.15em;
+	line-height: 1.05em;
+	letter-spacing: 0em;
+	font-weight: 600;
+	margin: 0.67em 0 0 0;
+}
+.plg-left h1 {
+	font-family: 'Cuprum', 'Helvetica', 'Arial', sans-serif;
+	font-size: 2.3em;
+	line-height: 1.5em;
+	letter-spacing: 0em;
+	font-weight: 600;
+	margin: 0;
+	
+}
+.plg-left h2 {
+	font-family: 'Cuprum', 'Helvetica', 'Arial', sans-serif;
+	font-size: 1.8em;
+	font-weight: 400;
+	line-height: 1.3em;
+	padding: 0;
+	
+}
+.plg-right-module h3 {
+	font-family: 'Cuprum', 'Helvetica', 'Arial', sans-serif;
+	font-size: 1.6em;
+	line-height: 1.3em;
+	font-weight: 400;
+	letter-spacing: 0em;
+	margin: 0 0 8px 0;
+}
+p, ul, ol, blockquote, input, select {
+    font-size: 15px;
+    line-height: 1.6em;
+	font-family: "Georgia",Georgia,"Times New Roman",Times,serif;
+}
+p {
+	padding-bottom: 13px;
+	margin: 0;
+}
+plg-left ul, .plg-right ul {
+	list-style-type: none;
+}
+plg-left li, .plg-right li {
+	font-family: "Georgia",Georgia,"Times New Roman",Times,serif;
+	line-height: 1.6em;
+	font-weight: 100;
+	background: url("images/list-item.png") left 6px no-repeat;
+	font-size: 1.0em;
+	margin-bottom: 3px;
+	padding: 0 0 0 15px;
+}
+plg-left li a, .plg-right li a {
+	color: #000;
+	 line-height: 0.9em;
+}
+plg-left li a:hover, .plg-right li a:hover {
+	color: #888;
+}
+.plg-wrap {
+	border: 1px solid #DFDFDF;
+	margin: 0 15px 15px 0;
+	padding: 13px 10px;
+	background-color: #fff;
+	float: left;
+	position: relative;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+.plg-left {
+	background-color: #fff;
+	overflow-y: scroll;
+	height:490px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px; 
+	border: 1px solid #DFDFDF;
+	padding: 15px 25px;
+	-webkit-box-shadow: 0px 0px 3px 0px #e4e4e4;	
+	-moz-box-shadow: 0px 0px 3px 0px #e4e4e4;
+	box-shadow: 0px 0px 3px 0px #e4e4e4; 
+	margin-right: 300px;
+	float: left;
+}
+.plg-right {
+	width: 280px;
+	height: 500px;
+	position: absolute;
+	top: 15px;
+	right: 10px;
+	
+}
+.plg-right-module {
+	height: 133px;
+	background-color: #fff;
+	-webkit-box-shadow: 0px 0px 3px 0px #e4e4e4;	
+	-moz-box-shadow: 0px 0px 3px 0px #e4e4e4;
+	box-shadow: 0px 0px 3px 0px #e4e4e4; 
+	border: 1px solid #DFDFDF;
+	margin-bottom: 12px;
+	padding: 15px 25px;
+}
+.plg-right-module:first-child {
+	-moz-border-radius-topright: 6px;
+	-webkit-border-radius: 0px 6px 0px 0px;
+	border-radius: 0px 6px 0px 0px; 
+}
+.plg-right-module:last-child {
+	-moz-border-radius-bottomright: 6px;
+	-webkit-border-radius: 0px 0px 6px 0px;
+	border-radius: 0px 0px 6px 0px; 
+}

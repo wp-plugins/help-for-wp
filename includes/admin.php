@@ -1,0 +1,360 @@
+<?php
+
+
+
+function h4wp_url_to_thickbox($url)
+{
+	$options = get_option( 'h4wp_myplugin_options' );
+	$username = $options['username'];
+	$current_user=urlencode($username);
+	$thickbox_url = "href=\"" . $url . "?h4wp-user=" . $current_user . "&TB_iframe=true&width=900&height=600\" class=\"thickbox\"";
+	print $thickbox_url ;
+}
+
+
+// functions that manage the menus
+require_once('menus.php');
+
+function h4wpRSS($show,$full,$showTitleLink,$feedURL)
+{
+
+	// show = how many posts to show
+	// full = will shows the full content 
+	// showTitleLink will show the title with a perma link, alternatively it is just going to print the title
+	// feedurl is the url of the feed to talk to 
+	
+	
+	// reference http://codex.wordpress.org/Function_Reference/fetch_feed
+	// simple pie http://simplepie.org/wiki/reference/start#simplepie_item
+
+	include_once(ABSPATH . WPINC . '/feed.php'); // path to include script
+
+	
+	// Get a SimplePie feed object from the specified feed source.
+	$rss = fetch_feed($feedURL);
+	if (!is_wp_error( $rss ) ) : // Checks that the object is created correctly 
+	    // Figure out how many total items there are, but limit it to 5. 
+	    $maxitems = $rss->get_item_quantity($show); 
+
+	    // Build an array of all the items, starting with element 0 (first element).
+	    $rss_items = $rss->get_items(0, $maxitems); 
+	endif;
+	
+	
+	if ($maxitems == 0) echo '<li>No items.</li>';
+	    else
+	    // Loop through each feed item and display each item as a hyperlink.
+	    foreach ( $rss_items as $item ):
+	    	if($showTitleLink != "false")
+			{
+				print "<li><a href='" . esc_url( $item->get_permalink() ) . "'>" . esc_html( $item->get_title() ) . "</a></li>";
+			}
+			else
+			{
+				print "<h1> " .esc_html( $item->get_title() ) . "</h1>";
+			}
+		
+			if($full != "false")
+			{
+				echo $item->get_content();
+			}
+	
+		endforeach;
+	
+	
+}
+
+// functions to setup default options when the plugin is activated 
+register_activation_hook(__FILE__,'h4wp_myplugin_install');
+
+function h4wp_myplugin_install(){
+	// test to see there are username / passwords options already stored
+	$options = get_option('h4wp_myplugin_options');
+	if($options['username'] == "" && $options['password'] == ""){
+		$default_options = array('username' => 'default-username', 'password' => 'default-password');
+		update_option('h4wp_myplugin_options', $default_options);
+	}
+	$options = get_option('h4wp_myplugin_options_content');
+	if($options['url'] == "" && $options['title'] == ""){
+		$default_options = array('url' => '', 'title' => 'No content');
+		update_option('h4wp_myplugin_options_content', $default_options);
+	}	
+}
+
+// **** these functions setup the menu options page for the plugin *****
+function h4wp_create_menu()
+{
+	
+	//create top level menu 
+	add_menu_page( 'Help For WP' , 'Help for WP' , 'read','h4wp', 'h4wp_dashboard_help',H4WP_URL . '/images/help-for-wordpress-menu.png',0);
+
+	//create sub menus
+	add_submenu_page('h4wp', 'Options', 'Options', 'manage_options', 'h4wp_options', 'h4wp_options_page' );
+	
+	//create sub menus for dev content
+	add_submenu_page('h4wp', 'Unique Content', 'Unique Content', 'manage_options', 'h4wp_unique_content', 'h4wp_unique_content_page' ); 
+}
+
+add_action( 'admin_menu', 'h4wp_create_menu' );
+
+function h4wp_unique_content_page(){
+	h4wp_page_top();
+	
+	?>
+				<form action="options.php" method="post">
+				<?php settings_fields('h4wp_myplugin_options_content'); ?>
+				<?php do_settings_sections('h4wp_unique_content'); ?>
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			</form>
+	
+	<?PHP
+	h4wp_page_bottom();
+}
+
+function h4wp_options_page()
+{
+	
+	h4wp_page_top();
+	//$options = get_option('h4wp_myplugin_options');
+	//var_dump($options);
+	// end of test - I need to delete this
+	?>
+				<form action="options.php" method="post">
+				<?php settings_fields('h4wp_myplugin_options'); ?>
+				<?php do_settings_sections('h4wp_options'); ?>
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			</form>
+	
+	<?PHP
+	h4wp_page_bottom();
+}
+
+// here is the code to register the settings that we need to store
+
+// Register and define the settings
+add_action('admin_init', 'h4wp_myplugin_admin_init');
+
+function h4wp_myplugin_admin_init(){
+	register_setting(
+		'h4wp_myplugin_options',
+		'h4wp_myplugin_options',
+		'h4wp_myplugin_validate_options'
+	);
+
+	add_settings_section(
+		'h4wp_myplugin_main',
+		'Help For WordPress Settings',
+		'h4wp_myplugin_section_text',
+		'h4wp_options'
+	);
+
+	add_settings_field(
+		'h4wp_myplugin_username',
+		'Unique content: ',
+		'h4wp_myplugin_setting_username',
+		'h4wp_options',
+		'h4wp_myplugin_main'
+	);
+	add_settings_field(
+		'h4wp_myplugin_password',
+		'Help For WordPress Password: ',
+		'h4wp_myplugin_setting_password',
+		'h4wp_options',
+		'h4wp_myplugin_main'
+);
+
+// these settings are for the unique content setup
+
+register_setting(
+	'h4wp_myplugin_options_content',
+	'h4wp_myplugin_options_content',
+	''
+);
+// h4wp_myplugin_validate_options_content validation for above - not operational
+
+
+add_settings_section(
+	'h4wp_myplugin_main_content',
+	'Unique content settings',
+	'h4wp_myplugin_content_section_text',
+	'h4wp_unique_content'
+);
+	
+add_settings_field(
+	'h4wp_myplugin_content',
+	'Content Title: ',
+	'h4wp_myplugin_content_title',
+	'h4wp_unique_content',
+	'h4wp_myplugin_main_content'
+);
+add_settings_field(
+	'h4wp_myplugin_content_url',
+	'URL: ',
+	'h4wp_myplugin_content_url',
+	'h4wp_unique_content',
+	'h4wp_myplugin_main_content'
+);	
+}
+
+
+// Draw the section header
+function h4wp_myplugin_content_section_text() {
+	echo "<p>If you're a WordPress developer and you would like to install site specific training material, enter the title and URL to the content below.</p>";
+	echo '<p>This content will then be added to the right hand menu for users.</p>';
+	}
+// Display and fill the form field
+
+
+
+function h4wp_myplugin_content_url() {
+	// get option 'text_string' value from the database
+	$options = get_option( 'h4wp_myplugin_options_content' );
+	$url = $options['url'];
+
+	// echo the field
+	echo "<input size='40' id='url' name='h4wp_myplugin_options_content[url]' type='text' value='$url' />";
+}
+
+function h4wp_myplugin_content_title() {
+	// get option 'text_string' value from the database
+	$options = get_option( 'h4wp_myplugin_options_content' );
+	$title = $options['title'];
+
+	// echo the field
+	echo "<input id='title' name='h4wp_myplugin_options_content[title]' type='text' value='$title' />";
+}
+
+// Draw the section header
+function h4wp_myplugin_section_text() {
+	echo '<p>Use this form to configure your help plugin. If you are a paid subscriber enter your username and password supplied when you made your purchase to obtain access to the premium training videos.</p>';
+	echo '<p>Leave these blank to access the free content.</p>';
+	}
+
+// Display and fill the form field
+function h4wp_myplugin_setting_username() {
+	// get option 'text_string' value from the database
+	$options = get_option( 'h4wp_myplugin_options' );
+	$username = $options['username'];
+	// echo the field
+	echo "<input id='username' name='h4wp_myplugin_options[username]' type='text' value='$username' />";
+}
+
+function h4wp_myplugin_setting_password() {
+	// get option 'text_string' value from the database
+	$options = get_option( 'h4wp_myplugin_options' );
+	$password = $options['password'];
+	// echo the field
+	echo "<input id='password' name='h4wp_myplugin_options[password]' type='text' value='$password' />";
+}
+
+// Validate user input (we want text only)
+function h4wp_myplugin_validate_options( $input ) {
+	
+	// with this usernames and passwords can be a-z 09 and _ that is all [^a-zA-Z0-9_]
+	// added /[^a-zA-Z0-9_@.]/ to username to allow full email addresses
+	
+	$valid['username'] = preg_replace( '/[^a-zA-Z0-9_@.]/', '', $input['username'] );
+	$valid['password'] = preg_replace( '/[^a-zA-Z0-9_]/', '', $input['password'] );
+	
+	if( ($valid['username'] != $input['username']) || ($valid['password'] != $input['password'])  ) {
+		add_settings_error(
+			'h4wp_myplugin_username',
+			'h4wp_myplugin_error',
+			'Incorrect value entered!',
+			'error'
+		);		
+	}
+	
+	return $valid;
+}
+
+
+
+function h4wp_myplugin_validate_options_content( $input ) {
+		// currently we're not validating the urls
+		return $valid;
+}
+
+
+
+// end of settings registration
+
+function h4wp_page_top()
+{
+	?>	
+		<link href="<? print H4WP_URL; ?>/style.css" rel="stylesheet" type="text/css" />
+		
+			<div class="wrap">
+			
+		       <div class="dma-icon">
+		            <img src="<? print H4WP_URL; ?>/images/help-for-wordpress-icon.png" alt="Help For WordPress Logo" />
+		        </div>
+	
+		    <div id="dashboard-widgets-wrap">
+
+		    <div class="plg-wrap">
+		    	<div class="plg-left">
+	
+	<?php	
+}
+
+function h4wp_page_bottom()
+{
+
+	?>
+	
+		 </div><!--END PLG-LEFT-->
+	        <div class="plg-right">
+	        	<div class="plg-right-module">
+	            	<?PHP 
+					h4wp_post_menu_1();
+					?>
+	            </div><!--END PLG-RIGHT-MODULE-->
+				<div class="plg-right-module">
+					<?PHP 
+					h4wp_post_menu_2();
+					?> 	
+	            </div><!--END PLG-RIGHT-MODULE-->
+
+	            <div class="plg-right-module">
+	            	<?PHP 
+					h4wp_post_menu_3();
+					?>
+	            </div><!--END PLG-RIGHT-MODULE-->
+	        </div><!--END PLG-RIGHT-->
+	    </div><!--END PLG-WRAP-->
+	    <div class="clear"></div>
+
+	    </div><!--END dashboard-widgets-wrap-->
+
+	    <div class="clear"></div>
+
+
+	</div><!--END WRAP-->
+	<div class="clear"></div>
+	
+	<?
+}
+
+function h4wp_dashboard_help()
+{
+	h4wp_page_top();
+	require_once(H4WP_PATH . '/pages/main-page.php');	
+	h4wp_page_bottom();
+}
+
+/*
+
+// here we are making the submenus for each category
+
+add_action('admin_menu','h4wp_make_post_submenu');
+
+// this is the older menu that was in the Dashboard section
+function h4wp_make_post_submenu()
+{
+	
+	add_dashboard_page("Help for WordPress - Dashboard","Dashboard Help","read",__FILE__ .'_dashboard',"h4wp_dashboard_help");					
+}
+*/
+
+?>
