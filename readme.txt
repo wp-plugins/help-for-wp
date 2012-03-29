@@ -14,7 +14,7 @@ Provide users with a range of free video training materials covering basic opera
 
 The training material covers simple operations like the WordPress editor, pages, posts plugins and more. 
 
-<iframe src="http://player.vimeo.com/video/39325737?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+[vimeo http://vimeo.com/39325737]
 
 Developers are also able to customise the plugin by adding additional video or static content that can also be available to users in this free edition.
 
