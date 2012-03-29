@@ -12,11 +12,13 @@ This plugin provides access to a range of free training videos for end users or 
 
 Provide users with a range of free video training materials covering basic operations in WordPress. 
 
-The training material covers simple operations like the WordPress editor, pages, posts plugins and more.
+The training material covers simple operations like the WordPress editor, pages, posts plugins and more. 
 
-Optionally users can choose to subscribe to a premium service that providers an even larger variety of training materials.
+<iframe src="http://player.vimeo.com/video/39325737?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
-Developers are also able to customise the plugin by adding addition video or static content that can also be available to users.
+Developers are also able to customise the plugin by adding additional video or static content that can also be available to users in this free edition.
+
+Optionally users can choose to subscribe to a premium service that providers an even larger variety of video training materials.
 
 == Installation ==
 
