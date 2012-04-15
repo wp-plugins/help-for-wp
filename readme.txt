@@ -30,7 +30,7 @@ From inside the WordPress admin interface you will then find a new set of option
 
 == Frequently Asked Questions ==
 
-Visit this URL at our site for FAQ and documentation - http://helpforwordpress.com/plugins/help-for-wordpress-video-training/
+Visit this URL at our site for FAQ and documentation - http://helpforwp.com/plugins/help-for-wordpress-video-training/
 == Screenshots ==
 1. Accessing the main interface from the WordPress admin screens
 
