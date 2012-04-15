@@ -12,13 +12,15 @@ This plugin provides access to a range of free training videos for end users or 
 
 Provide users with a range of free video training materials covering basic operations in WordPress. 
 
-The training material covers simple operations like the WordPress editor, pages, posts plugins and more. 
+The training material covers simple operations like the WordPress editor, pages, posts, plugins and more. 
 
 [vimeo http://vimeo.com/39325737]
 
 Developers are also able to customise the plugin by adding additional video or static content that can also be available to users in this free edition.
 
 Optionally users can choose to subscribe to a premium service that providers an even larger variety of video training materials.
+
+Videos are not stored in the plugin itself they are read in real time as the user requests a video tutorial, therefore the actual plugin is very small in size.
 
 == Installation ==
 
@@ -35,5 +37,6 @@ Visit this URL at our site for FAQ and documentation - http://helpforwordpress.
 2. Viewing a video right in the back end of WordPress
 
 == Changelog ==
+1.0.2 Better support for site specific content, more videos added, menu re-organised and code tidy
 1.0.1 Bug fix on plugin path
 1.0 Initial public release

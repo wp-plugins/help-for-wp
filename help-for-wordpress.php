@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Help For WP
-Plugin URI: http://helpforwordpress.com
+Plugin URI: http://helpforwp.com
 Description: The missing (video) training manual for WordPress, this plugin provides a range of video help right inside the Wordpress Administration interface
-Version: 1.0.1
+Version: 1.0.2
 Author: Peter Shilling
-Author URI: http://helpforwordpress.com
+Author URI: http://helpforwp.com
 
 ------------------------------------------------------------------------
 Copyright 2011 TheDMA

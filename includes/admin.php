@@ -1,17 +1,21 @@
 <?php
 
-
-
-function h4wp_url_to_thickbox($url)
+function h4wp_url_to_thickbox($url,$additional_css)
 {
 	$options = get_option( 'h4wp_myplugin_options' );
 	$username = $options['username'];
-	$current_user=urlencode($username);
-	$thickbox_url = "href=\"" . $url . "?h4wp-user=" . $current_user . "&TB_iframe=true&width=900&height=600\" class=\"thickbox\"";
+	$password = $options['password'];
+	//$password = wp_hash_password( $password );
+	$h4wp_user =urlencode($username);
+	$h4wp_cred = urlencode($password);
+		if($additional_css){
+			$css="thickbox " . $additional_css;
+		}else{
+			$css="thickbox";
+		}
+	$thickbox_url = "href=\"" . $url . "?h4wp_user=" . $h4wp_user . "&h4wp_cred=" . $h4wp_cred . "&TB_iframe=true&width=900&height=600\" class=\"" . $css . "\"";
 	print $thickbox_url ;
 }
-
-
 // functions that manage the menus
 require_once('menus.php');
 
@@ -115,9 +119,7 @@ function h4wp_options_page()
 {
 	
 	h4wp_page_top();
-	//$options = get_option('h4wp_myplugin_options');
-	//var_dump($options);
-	// end of test - I need to delete this
+
 	?>
 				<form action="options.php" method="post">
 				<?php settings_fields('h4wp_myplugin_options'); ?>
@@ -150,14 +152,14 @@ function h4wp_myplugin_admin_init(){
 
 	add_settings_field(
 		'h4wp_myplugin_username',
-		'Unique content: ',
+		'Help For WP Username: ',
 		'h4wp_myplugin_setting_username',
 		'h4wp_options',
 		'h4wp_myplugin_main'
 	);
 	add_settings_field(
 		'h4wp_myplugin_password',
-		'Help For WordPress Password: ',
+		'Help For WP Password: ',
 		'h4wp_myplugin_setting_password',
 		'h4wp_options',
 		'h4wp_myplugin_main'
@@ -202,9 +204,6 @@ function h4wp_myplugin_content_section_text() {
 	echo "<p>If you're a WordPress developer and you would like to install site specific training material, enter the title and URL to the content below.</p>";
 	echo '<p>This content will then be added to the right hand menu for users.</p>';
 	}
-// Display and fill the form field
-
-
 
 function h4wp_myplugin_content_url() {
 	// get option 'text_string' value from the database
@@ -228,6 +227,10 @@ function h4wp_myplugin_content_title() {
 function h4wp_myplugin_section_text() {
 	echo '<p>Use this form to configure your help plugin. If you are a paid subscriber enter your username and password supplied when you made your purchase to obtain access to the premium training videos.</p>';
 	echo '<p>Leave these blank to access the free content.</p>';
+	echo '<p><a ';
+	h4wp_url_to_thickbox( "http://helpforwordpress.com/h4wp-Content/membership-options/","" );
+	echo '>';
+	echo 'Read more</a> on accessing the full WordPress video training library.';
 	}
 
 // Display and fill the form field
@@ -286,8 +289,35 @@ function h4wp_page_top()
 		
 			<div class="wrap">
 			
-		       <div class="dma-icon">
+		       <div class="h4wp-heading">
 		            <img src="<? print H4WP_URL; ?>/images/help-for-wordpress-icon.png" alt="Help For WordPress Logo" />
+					<?PHP
+					// here we see if there is site specific content to be added to the menu
+					$options = get_option( 'h4wp_myplugin_options_content' );
+					$url = $options['url'];
+					$title = $options['title'];
+
+					if($title == "No content" || $title == "" || $url == ""){
+						// no site specific content
+						$url = "http://helpforwordpress.com/h4wp-Content/site-specific-training/";
+						echo "<a ";
+						h4wp_url_to_thickbox($url,"target-content");
+						echo ">";
+						echo "No site specific training installed";
+						echo "</a>";
+						echo "</li>";
+					}else{
+						echo "<a ";
+						h4wp_url_to_thickbox($url,"target-content");
+						echo ">";
+						echo $title;
+						echo "</a>";
+						echo "</li>";
+					}
+					
+					?>
+					
+					
 		        </div>
 	
 		    <div id="dashboard-widgets-wrap">
@@ -297,6 +327,7 @@ function h4wp_page_top()
 	
 	<?php	
 }
+
 
 function h4wp_page_bottom()
 {
