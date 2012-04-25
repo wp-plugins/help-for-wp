@@ -1,6 +1,6 @@
 === Help for WP ===
 Contributors: PeterShilling 
-Donate link:http://helpforwordpress.com/buy/donate-to-our-plugin-development/
+Donate link:http://helpforwp.com/buy/donate-to-our-plugin-development/
 Tags: training, support,help
 Requires at least: 3.0
 Tested up to: 3.3.1
@@ -14,7 +14,7 @@ Provide users with a range of free video training materials covering basic opera
 
 The training material covers simple operations like the WordPress editor, pages, posts, plugins and more. 
 
-[vimeo http://vimeo.com/39325737]
+[vimeo http://vimeo.com/41046592]
 
 Developers are also able to customise the plugin by adding additional video or static content that can also be available to users in this free edition.
 
