@@ -285,12 +285,12 @@ function h4wp_myplugin_validate_options_content( $input ) {
 function h4wp_page_top()
 {
 	?>	
-		<link href="<? print H4WP_URL; ?>/style.css" rel="stylesheet" type="text/css" />
+		<link href="<?PHP print H4WP_URL; ?>/style.css" rel="stylesheet" type="text/css" />
 		
 			<div class="wrap">
 			
 		       <div class="h4wp-heading">
-		            <img src="<? print H4WP_URL; ?>/images/help-for-wordpress-icon.png" alt="Help For WordPress Logo" />
+		            <img src="<?PHP print H4WP_URL; ?>/images/help-for-wordpress-icon.png" alt="Help For WordPress Logo" />
 					<?PHP
 					// here we see if there is site specific content to be added to the menu
 					$options = get_option( 'h4wp_myplugin_options_content' );
@@ -364,7 +364,7 @@ function h4wp_page_bottom()
 	</div><!--END WRAP-->
 	<div class="clear"></div>
 	
-	<?
+	<?PHP
 }
 
 function h4wp_dashboard_help()
