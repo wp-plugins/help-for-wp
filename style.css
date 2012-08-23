@@ -45,7 +45,7 @@
 	letter-spacing: 0em;
 	margin: 0 0 8px 0;
 }
-p, ul, ol, blockquote, input, select {
+.h4wp p, .h4wp ul, .h4wp ol, .h4wp blockquote, .h4wp input, .h4wp select {
     font-size: 15px;
     line-height: 1.6em;
 	font-family: "Georgia",Georgia,"Times New Roman",Times,serif;

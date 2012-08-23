@@ -37,7 +37,8 @@ Visit this URL at our site for FAQ and documentation - http://helpforwp.com/plu
 2. Viewing a video right in the back end of WordPress
 
 == Changelog ==
-1.0.3 Minor fix to load CSS correctlly, where PHP short hand is not supported
+1.0.4 Minor clean up of CSS and corrected interaction with WordPress errors
+1.0.3 Minor fix to load CSS correctly, where PHP short hand is not supported
 1.0.2 Better support for site specific content, more videos added, menu re-organised and code tidy
 1.0.1 Bug fix on plugin path
 1.0 Initial public release

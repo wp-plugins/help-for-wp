@@ -287,8 +287,8 @@ function h4wp_page_top()
 	?>	
 		<link href="<?PHP print H4WP_URL; ?>/style.css" rel="stylesheet" type="text/css" />
 		
-			<div class="wrap">
-			
+			<div class="wrap h4wp">
+			<h2></h2>
 		       <div class="h4wp-heading">
 		            <img src="<?PHP print H4WP_URL; ?>/images/help-for-wordpress-icon.png" alt="Help For WordPress Logo" />
 					<?PHP
