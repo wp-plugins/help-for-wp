@@ -6,7 +6,7 @@ Requires at least: 3.0
 Tested up to: 3.5.1
 Stable tag: trunk
 
-This plugin provides access to a range of free training videos for end users of WordPress. Once installed the plugin creates a new menu from which a user can browse the training videos.
+This plugin provides access to a range of free training videos for end users of WordPress. Access to the videos is from their WordPress Dashboard.
 
 == Description ==
 
