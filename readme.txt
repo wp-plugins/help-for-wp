@@ -1,12 +1,12 @@
 === Help for WP ===
 Contributors: PeterShilling 
 Donate link:http://helpforwp.com/buy/donate-to-our-plugin-development/
-Tags: training, support,help
+Tags: training, support,help,tutorial
 Requires at least: 3.0
-Tested up to: 3.3.1
+Tested up to: 3.5.1
 Stable tag: trunk
 
-This plugin provides access to a range of free training videos for end users or WordPress with access from right inside the WordPress admin interface.
+This plugin provides access to a range of free training videos for end users of WordPress. Once installed the plugin creates a new menu from which a user can browse the training videos.
 
 == Description ==
 
@@ -16,9 +16,7 @@ The training material covers simple operations like the WordPress editor, pages,
 
 [vimeo http://vimeo.com/41046592]
 
-Developers are also able to customise the plugin by adding additional video or static content that can also be available to users in this free edition.
-
-Optionally users can choose to subscribe to a premium service that providers an even larger variety of video training materials.
+Developers are also able to customise the plugin by adding additional video or static content that can also be available to users right inside their WordPress Dashboard.
 
 Videos are not stored in the plugin itself they are read in real time as the user requests a video tutorial, therefore the actual plugin is very small in size.
 
@@ -31,12 +29,14 @@ From inside the WordPress admin interface you will then find a new set of option
 == Frequently Asked Questions ==
 
 Visit this URL at our site for FAQ and documentation - http://helpforwp.com/plugins/help-for-wordpress-video-training/
+
 == Screenshots ==
 1. Accessing the main interface from the WordPress admin screens
 
 2. Viewing a video right in the back end of WordPress
 
 == Changelog ==
+1.2 Access to entire library of videos is now free, minor changes to dashboard interface
 1.0.4 Minor clean up of CSS and corrected interaction with WordPress errors
 1.0.3 Minor fix to load CSS correctly, where PHP short hand is not supported
 1.0.2 Better support for site specific content, more videos added, menu re-organised and code tidy

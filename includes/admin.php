@@ -2,19 +2,14 @@
 
 function h4wp_url_to_thickbox($url,$additional_css)
 {
-	$options = get_option( 'h4wp_myplugin_options' );
-	$username = $options['username'];
-	$password = $options['password'];
-	//$password = wp_hash_password( $password );
-	$h4wp_user =urlencode($username);
-	$h4wp_cred = urlencode($password);
+	
 		if($additional_css){
 			$css="thickbox " . $additional_css;
 		}else{
 			$css="thickbox";
 		}
-	$thickbox_url = "href=\"" . $url . "?h4wp_user=" . $h4wp_user . "&h4wp_cred=" . $h4wp_cred . "&TB_iframe=true&width=900&height=600\" class=\"" . $css . "\"";
-	print $thickbox_url ;
+	$thickbox_url = "href=\"" . $url . "?TB_iframe=true&width=900&height=600&utm_source=H4WP&utm_medium=VideoLibrary&utm_term=H4WP&utm_content=Video&utm_campaign=H4WPVideo\" class=\"" . $css . "\"";
+	return $thickbox_url ;
 }
 // functions that manage the menus
 require_once('menus.php');
@@ -45,17 +40,24 @@ function h4wpRSS($show,$full,$showTitleLink,$feedURL)
 	endif;
 	
 	
-	if ($maxitems == 0) echo '<li>No items.</li>';
+	if ($maxitems == 0) echo 'No items...';
 	    else
 	    // Loop through each feed item and display each item as a hyperlink.
 	    foreach ( $rss_items as $item ):
 	    	if($showTitleLink != "false")
 			{
-				print "<li><a href='" . esc_url( $item->get_permalink() ) . "'>" . esc_html( $item->get_title() ) . "</a></li>";
+				//$url = esc_url( $item->get_permalink());
+				$url = $item->get_permalink();
+				$url = parse_url( $url );
+				$url = $url['scheme'] . '://' . $url['host'] . $url['path'];
+				print "<h3>";
+				print "<a " . h4wp_url_to_thickbox( $url,'' ) .">";
+				print  esc_html( $item->get_title() ) ;
+				print "</a></h3>";
 			}
 			else
 			{
-				print "<h1> " .esc_html( $item->get_title() ) . "</h1>";
+				print "<h4> " .esc_html( $item->get_title() ) . "</h4>";
 			}
 		
 			if($full != "false")
@@ -72,12 +74,7 @@ function h4wpRSS($show,$full,$showTitleLink,$feedURL)
 register_activation_hook(__FILE__,'h4wp_myplugin_install');
 
 function h4wp_myplugin_install(){
-	// test to see there are username / passwords options already stored
-	$options = get_option('h4wp_myplugin_options');
-	if($options['username'] == "" && $options['password'] == ""){
-		$default_options = array('username' => 'default-username', 'password' => 'default-password');
-		update_option('h4wp_myplugin_options', $default_options);
-	}
+	
 	$options = get_option('h4wp_myplugin_options_content');
 	if($options['url'] == "" && $options['title'] == ""){
 		$default_options = array('url' => '', 'title' => 'No content');
@@ -93,7 +90,7 @@ function h4wp_create_menu()
 	add_menu_page( 'Help For WP' , 'Help for WP' , 'read','h4wp', 'h4wp_dashboard_help',H4WP_URL . '/images/help-for-wordpress-menu.png',0);
 
 	//create sub menus
-	add_submenu_page('h4wp', 'Options', 'Options', 'manage_options', 'h4wp_options', 'h4wp_options_page' );
+	//add_submenu_page('h4wp', 'Options', 'Options', 'manage_options', 'h4wp_options', 'h4wp_options_page' );
 	
 	//create sub menus for dev content
 	add_submenu_page('h4wp', 'Unique Content', 'Unique Content', 'manage_options', 'h4wp_unique_content', 'h4wp_unique_content_page' ); 
@@ -202,6 +199,7 @@ add_settings_field(
 // Draw the section header
 function h4wp_myplugin_content_section_text() {
 	echo "<p>If you're a WordPress developer and you would like to install site specific training material, enter the title and URL to the content below.</p>";
+	echo "<P>Content could be a PDF file, a video or a link to a web page, it's up to you!</P>";
 	echo '<p>This content will then be added to the right hand menu for users.</p>';
 	}
 
@@ -225,8 +223,8 @@ function h4wp_myplugin_content_title() {
 
 // Draw the section header
 function h4wp_myplugin_section_text() {
-	echo '<p>Use this form to configure your help plugin. If you are a paid subscriber enter your username and password supplied when you made your purchase to obtain access to the premium training videos.</p>';
-	echo '<p>Leave these blank to access the free content.</p>';
+	echo '<p>Use this form to configure your help plugin.</p>';
+	echo '<p>Choose to have the video</p>';
 	echo '<p><a ';
 	h4wp_url_to_thickbox( "http://helpforwordpress.com/h4wp-Content/membership-options/","" );
 	echo '>';
@@ -301,14 +299,14 @@ function h4wp_page_top()
 						// no site specific content
 						$url = "http://helpforwordpress.com/h4wp-Content/site-specific-training/";
 						echo "<a ";
-						h4wp_url_to_thickbox($url,"target-content");
+						echo "href='#' class='target-content' ";
 						echo ">";
 						echo "No site specific training installed";
 						echo "</a>";
 						echo "</li>";
 					}else{
 						echo "<a ";
-						h4wp_url_to_thickbox($url,"target-content");
+						echo h4wp_url_to_thickbox($url,"target-content");
 						echo ">";
 						echo $title;
 						echo "</a>";
@@ -374,18 +372,5 @@ function h4wp_dashboard_help()
 	h4wp_page_bottom();
 }
 
-/*
-
-// here we are making the submenus for each category
-
-add_action('admin_menu','h4wp_make_post_submenu');
-
-// this is the older menu that was in the Dashboard section
-function h4wp_make_post_submenu()
-{
-	
-	add_dashboard_page("Help for WordPress - Dashboard","Dashboard Help","read",__FILE__ .'_dashboard',"h4wp_dashboard_help");					
-}
-*/
 
 ?>
